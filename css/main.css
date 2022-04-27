@@ -1,0 +1,304 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  background: radial-gradient(hsl(214deg, 47%, 23%), hsl(237deg, 49%, 15%));
+  overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+body .overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 0%;
+  height: 0%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4784313725);
+  z-index: -1;
+  opacity: 0;
+}
+body .overlay.active {
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  border-radius: 0;
+  opacity: 1;
+}
+
+.container {
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+header {
+  padding: 10px;
+  text-transform: uppercase;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 3px hsl(217deg, 16%, 45%);
+  border-radius: 8px;
+  font-size: 0.9em;
+}
+header .right img {
+  height: 45px;
+}
+header .left {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: hsl(229deg, 64%, 46%);
+}
+header .left .score {
+  color: hsl(229deg, 25%, 31%);
+  font-size: 1.5em;
+}
+
+.elements-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 30px;
+  -moz-column-gap: 40px;
+       column-gap: 40px;
+  justify-content: center;
+  position: relative;
+  transform: translate(0, 50%);
+  z-index: 10;
+}
+.elements-container > div > img {
+  margin: 0 auto;
+  display: block;
+}
+.elements-container .triangle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.elements-container .triangle img {
+  height: 140px;
+}
+.elements-container .inner {
+  padding: 40px;
+  background-color: #fff;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.elements-container .element {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 99999;
+  cursor: pointer;
+}
+.elements-container .element span {
+  color: #fff;
+  position: absolute;
+  bottom: -30px;
+  opacity: 0;
+  white-space: nowrap;
+}
+.elements-container .element .shadow {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  box-shadow: 0 0 0 35px rgba(255, 255, 255, 0.02) inset, 0 0 0 50px rgba(255, 255, 255, 0.02) inset, 0 0 0 60px rgba(255, 255, 255, 0.02) inset;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.elements-container .paper {
+  background-image: linear-gradient(hsl(230deg, 89%, 62%), hsl(230deg, 89%, 65%));
+}
+.elements-container .scissors {
+  background: linear-gradient(hsl(39deg, 89%, 49%), hsl(40deg, 84%, 53%));
+}
+.elements-container .scissors .choosing {
+  width: 101%;
+  height: 101%;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: hsl(224deg, 47%, 19%);
+  opacity: 0;
+}
+.elements-container .rock {
+  grid-column: span 2;
+  background-image: linear-gradient(hsl(349deg, 71%, 52%), hsl(349deg, 70%, 56%));
+}
+
+.game-state {
+  font-size: 1.5em;
+  color: #fff;
+  text-transform: uppercase;
+  transform: translate(0, 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+.game-state .play-again {
+  margin-top: 10px;
+  padding: 15px 40px;
+  font-size: 0.5em;
+  font-weight: 400;
+  letter-spacing: 5px;
+  display: grid;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.rules-container {
+  position: absolute;
+  top: 90vh;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  opacity: 0;
+}
+.rules-container img {
+  height: 200px;
+  display: block;
+  margin: auto;
+}
+.rules-container span {
+  margin-top: 80px;
+  margin-bottom: 50px;
+  color: hsl(229deg, 25%, 31%);
+  display: block;
+  font-size: 2em;
+}
+.rules-container .close {
+  height: 20px;
+  cursor: pointer;
+}
+
+.rules-btn {
+  padding: 8px 40px;
+  color: #fff;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  cursor: pointer;
+  z-index: 99999;
+}
+
+.rules-container.active {
+  transition: 0.3s;
+  opacity: 1;
+  top: 0;
+  z-index: 999999;
+}
+
+.elements-container.active {
+  transition: 0.5;
+}
+.elements-container.active .element:not(:last-child) {
+  transform: translate(0, 50%);
+}
+.elements-container.active .element:last-child {
+  opacity: 0;
+  cursor: unset;
+}
+.elements-container.active .triangle {
+  opacity: 0;
+}
+.elements-container.active .element span {
+  opacity: 1;
+}
+
+@media (min-width: 590px) {
+  .container {
+    width: 465px;
+  }
+
+  .elements-container {
+    transform: translate(0, 25%);
+    -moz-column-gap: 140px;
+         column-gap: 140px;
+  }
+  .elements-container .element {
+    width: 150px;
+    height: 150px;
+  }
+  .elements-container .triangle img {
+    height: 190px;
+  }
+
+  .game-state {
+    transform: translate(0, -100%);
+  }
+  .game-state .play-again {
+    font-size: 0.66em;
+  }
+
+  .rules-container {
+    width: 400px;
+    height: 400px;
+    border-radius: 8px;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+  }
+
+  .rules-container.active {
+    top: 50%;
+    z-index: 999;
+  }
+  .rules-container.active span {
+    margin-top: 20px;
+  }
+
+  .rules-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+}/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div class="overlay">
+        <!-- overlay when rules pop out -->
+    </div>
+    <div class="container">
+        <header>
+            <div class="right">
+                <img src="./images/logo.svg" alt="">
+            </div>
+
+            <div class="left">
+                <div class="score-container">
+                    Score <br>
+                    <span class="score">
+                        0 
+                    </span>
+
+                </div>
+            </div>
+        </header>
+
+        <div class="elements-container chooseable">
+            <div class="triangle">
+
+                <img src="./images/bg-triangle.svg" alt="">
+            </div>
+            <div class="paper element" data-color='blue' data-beats="rock" data-beats-me="scissors">
+                <div class="shadow">
+                    <!-- shadow for the winner-->
+                </div>
+                <div class="inner">
+                    <img src="./images/icon-paper.svg" alt="">
+                </div>
+                <span>You Picked</span>
+            </div>
+
+            <div class="scissors element" data-color='#ec9f10' data-beats="paper" data-beats-me="rock">
+                <div class="shadow">
+                    <!-- shadow for the winner-->
+                </div>
+                <div class="choosing">
+                    <!-- will appear when computer choose  -->
+
+                </div>
+                <div class="inner">
+                    <img src="./images/icon-scissors.svg" alt="">
+
+                </div>
+                <span>The House Picked</span>
+            </div>
+
+            <div class="rock element" data-color='red' data-beats="scissors" data-beats-me="paper">
+                <div class="inner">
+
+                    <img src="./images/icon-rock.svg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="game-state">
+            <h1>You <span>loose</span></h1>
+            <div class="play-again">play again</div>
+        </div>
+
+        <div class="rules-container">
+            <span>Rules</span>
+            <img src="./images/image-rules.svg" alt="">
+            <img src="./images/icon-close.svg" alt="" class="close">
+        </div>
+        <div class="rules-btn">
+            Rules
+        </div>
+
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

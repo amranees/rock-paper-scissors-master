@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&display=swap');
+// $scissors-gradient: hsl(39, 89%, 49%) to hsl(40, 84%, 53%);
+// $paper-gradient: hsl(230, 89%, 62%) to hsl(230, 89%, 65%);
+// $rock-gradient: hsl(349, 71%, 52%) to hsl(349, 70%, 56%);
+// $lizard-gradient: hsl(261, 73%, 60%) to hsl(261, 72%, 63%);
+// $cyan: hsl(189, 59%, 53%) to hsl(189, 58%, 57%);
+// Var 
+// ### Primary
+$primary-colors: ( scissors: linear-gradient(hsl(39, 89%, 49%), hsl(40, 84%, 53%)),
+paper: linear-gradient(hsl(230, 89%, 62%), hsl(230, 89%, 65%)),
+rock: linear-gradient(hsl(349, 71%, 52%), hsl(349, 70%, 56%)),
+lizard: linear-gradient(hsl(261, 73%, 60%), hsl(261, 72%, 63%)),
+cyan: linear-gradient(hsl(189, 59%, 53%), hsl(189, 58%, 57%)));
+$neutral-colors: ( // ### Neutral
+dark-text: hsl(229, 25%, 31%),
+score-text: hsl(229, 64%, 46%),
+header-outline: hsl(217, 16%, 45%),
+);
+$padding: 30px;
+@function primary-color($color-name) {
+    @return map-get($primary-colors,
+    $color-name);
+}
+
+;
+@function neutral-color($color-name) {
+    @return map-get($neutral-colors,
+    $color-name);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: .2s;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    background: radial-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+    overflow: hidden;
+    user-select: none;
+    .overlay {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 0%;
+        height: 0%;
+        border-radius: 50%;
+        background: #0000007a;
+        z-index: -1;
+        opacity: 0;
+    }
+    .overlay.active {
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        border-radius: 0;
+        opacity: 1;
+    }
+}
+
+.container {
+    padding: $padding;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+header {
+    padding: 10px;
+    text-transform: uppercase;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid 3px neutral-color(header-outline);
+    border-radius: 8px;
+    font-size: .9em;
+    .right {
+        img {
+            height: 45px;
+        }
+    }
+    .left {
+        text-align: center;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 10px 20px;
+        color: neutral-color(score-text);
+        .score {
+            color: neutral-color(dark-text);
+            font-size: 1.5em;
+        }
+    }
+}
+
+//  Start Elements
+.elements-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 30px;
+    column-gap: 40px;
+    justify-content: center;
+    position: relative;
+    transform: translate(0, 50%);
+    z-index: 10;
+    &>div>img {
+        margin: 0 auto;
+        display: block;
+    }
+    .triangle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        img {
+            height: 140px;
+        }
+    }
+    .inner {
+        padding: 40px;
+        background-color: #fff;
+        // border-radius: 50%;
+        width: 80%;
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+    .element {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 0 auto;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 99999;
+        cursor: pointer;
+        span {
+            color: #fff;
+            position: absolute;
+            bottom: -30px;
+            opacity: 0;
+            white-space: nowrap;
+        }
+        .shadow {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            box-shadow: 0 0 0 35px rgb(255, 255, 255, .02) inset, 0 0 0 50px rgb(255, 255, 255, .02) inset, 0 0 0 60px rgb(255, 255, 255, .02) inset;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+    }
+    .paper {
+        background-image: primary-color(paper);
+    }
+    .scissors {
+        background: primary-color(scissors);
+        // when computer choose 
+        .choosing {
+            width: 101%;
+            height: 101%;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: hsl(224deg 47% 19%);
+            opacity: 0;
+        }
+    }
+    .rock {
+        grid-column: span 2;
+        background-image: primary-color(rock);
+    }
+}
+
+//  End Elements
+// Game state (appear after win/loose)
+.game-state {
+    font-size: 1.5em;
+    color: #fff;
+    text-transform: uppercase;
+    transform: translate(0, 50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    .play-again {
+        margin-top: 10px;
+        padding: 15px 40px;
+        font-size: .5em;
+        font-weight: 400;
+        // color: neutral-color(score-text);
+        letter-spacing: 5px;
+        display: grid;
+        justify-content: center;
+        background-color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+}
+
+// Start Rules window
+.rules-container {
+    position: absolute;
+    top: 90vh;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    opacity: 0;
+    img {
+        height: 200px;
+        display: block;
+        margin: auto;
+        // margin-bottom: 190px;
+    }
+    span {
+        margin-top: 80px;
+        margin-bottom: 50px;
+        color: neutral-color(dark-text);
+        display: block;
+        font-size: 2em;
+    }
+    .close {
+        height: 20px;
+        cursor: pointer;
+    }
+}
+
+.rules-btn {
+    padding: 8px 40px;
+    color: #fff;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    cursor: pointer;
+    z-index: 99999;
+}
+
+.rules-container.active {
+    transition: .3s;
+    opacity: 1;
+    top: 0;
+    z-index: 999999;
+}
+
+// End Rules window
+// Start Game
+.elements-container.active {
+    transition: .5;
+    .element:not(:last-child) {
+        transform: translate(0, 50%);
+    }
+    .element:last-child {
+        opacity: 0;
+        cursor: unset;
+    }
+    .triangle {
+        opacity: 0;
+    }
+    .element {
+        span {
+            opacity: 1;
+        }
+    }
+}
+
+// End Game
+// Resposive
+@media (min-width: 590px) {
+    .container {
+        width: 465px;
+    }
+    .elements-container {
+        transform: translate(0, 25%);
+        column-gap: 140px;
+        .element {
+            width: 150px;
+            height: 150px;
+        }
+        .triangle img {
+            height: 190px;
+        }
+    }
+    .game-state {
+        transform: translate(0, -100%);
+        .play-again {
+            font-size: .66em;
+        }
+    }
+    .rules-container {
+        width: 400px;
+        height: 400px;
+        border-radius: 8px;
+        left: 50%;
+        top: 60%;
+        transform: translate(-50%, -50%);
+    }
+    .rules-container.active {
+        top: 50%;
+        z-index: 999;
+        span {
+            margin-top: 20px;
+        }
+    }
+    .rules-btn {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+    }
+}
